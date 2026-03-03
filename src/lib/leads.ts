@@ -1,5 +1,5 @@
-const SUPABASE_URL = "https://rbiwvevkytattetsetsetsesetesabase.co";
-const SUPABASE_ANON_KEY = "sb_secrettesstsetesteSfSZIsGLiA_3gXr_LTe";
+const SUPABASE_URL = "https://rbiwvevkytatxffeoypw.supabase.co";
+const SUPABASE_ANON_KEY = "sb_secret_ngYX5aTAXWwiSfSZIsGLiA_3gXr_LTe";
 
 export const CLIENTES = [
   { id: "clienteA", nome: "Closing Senior" },
