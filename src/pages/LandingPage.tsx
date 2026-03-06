@@ -167,6 +167,9 @@ function Navbar() {
           >
             Entrar
           </Button>
+          <Button size="sm" variant="secondary" className="ml-2" onClick={() => navigate("/onboarding-agendamento")}>
+            Agendamento
+          </Button>
           <Button size="sm" className="ml-2" onClick={() => navigate("/onboarding")}>
             Começar grátis <ArrowRight className="w-3.5 h-3.5" />
           </Button>
@@ -195,6 +198,9 @@ function Navbar() {
           <div className="flex flex-col gap-2 pt-2">
             <Button variant="outline" onClick={() => { setMobileOpen(false); navigate("/dashboardlead"); }}>
               Entrar
+            </Button>
+            <Button variant="secondary" onClick={() => { setMobileOpen(false); navigate("/onboarding-agendamento"); }}>
+              Agendamento
             </Button>
             <Button onClick={() => { setMobileOpen(false); navigate("/onboarding"); }}>
               Começar grátis <ArrowRight className="w-3.5 h-3.5" />
@@ -625,6 +631,9 @@ export default function LandingPage() {
           <div className="flex items-center gap-6 text-sm opacity-70">
             <button onClick={() => navigate("/onboarding")} className="hover:opacity-100 transition-opacity">
               Cadastro
+            </button>
+            <button onClick={() => navigate("/onboarding-agendamento")} className="hover:opacity-100 transition-opacity">
+              Agendamento
             </button>
             <button onClick={() => navigate("/dashboardlead")} className="hover:opacity-100 transition-opacity">
               Dashboard
