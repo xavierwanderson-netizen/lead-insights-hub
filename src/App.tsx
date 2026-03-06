@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import DashboardLead from "./pages/DashboardLead";
 import Onboarding from "./pages/Onboarding";
+import OnboardingAgendamento from "./pages/OnboardingAgendamento";
 import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/onboarding-agendamento" element={<OnboardingAgendamento />} />
           <Route path="/dashboardlead" element={<DashboardLead />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
