@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import DashboardLead from "./pages/DashboardLead";
 import Onboarding from "./pages/Onboarding";
+import OnboardingAgendamento from "./pages/OnboardingAgendamento";
 import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
