@@ -167,6 +167,9 @@ function Navbar() {
           >
             Entrar
           </Button>
+          <Button size="sm" variant="secondary" className="ml-2" onClick={() => navigate("/onboarding-agendamento")}>
+            Agendamento
+          </Button>
           <Button size="sm" className="ml-2" onClick={() => navigate("/onboarding")}>
             Começar grátis <ArrowRight className="w-3.5 h-3.5" />
           </Button>
