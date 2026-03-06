@@ -632,6 +632,9 @@ export default function LandingPage() {
             <button onClick={() => navigate("/onboarding")} className="hover:opacity-100 transition-opacity">
               Cadastro
             </button>
+            <button onClick={() => navigate("/onboarding-agendamento")} className="hover:opacity-100 transition-opacity">
+              Agendamento
+            </button>
             <button onClick={() => navigate("/dashboardlead")} className="hover:opacity-100 transition-opacity">
               Dashboard
             </button>
