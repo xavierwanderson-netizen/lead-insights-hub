@@ -199,6 +199,9 @@ function Navbar() {
             <Button variant="outline" onClick={() => { setMobileOpen(false); navigate("/dashboardlead"); }}>
               Entrar
             </Button>
+            <Button variant="secondary" onClick={() => { setMobileOpen(false); navigate("/onboarding-agendamento"); }}>
+              Agendamento
+            </Button>
             <Button onClick={() => { setMobileOpen(false); navigate("/onboarding"); }}>
               Começar grátis <ArrowRight className="w-3.5 h-3.5" />
             </Button>
