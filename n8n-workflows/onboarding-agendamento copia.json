@@ -1,0 +1,202 @@
+{
+  "name": "onboarding-agendamento",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "onboarding-agendamento",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e9da76cc-d02c-4b60-8ac9-eaf789bf7bcd",
+      "name": "Webhook",
+      "webhookId": "104f4fbe-5706-4da2-8063-28a079784be1"
+    },
+    {
+      "parameters": {
+        "tableId": "empresas",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "nome_empresa",
+              "fieldValue": "={{ $json.nome_empresa }}"
+            },
+            {
+              "fieldId": "tipo_negocio",
+              "fieldValue": "={{ $json.tipo_negocio }}"
+            },
+            {
+              "fieldId": "cliente_id",
+              "fieldValue": "={{ $json.cliente_id }}"
+            },
+            {
+              "fieldId": "prompt_regras",
+              "fieldValue": "={{ $json.prompt_regras }}"
+            },
+            {
+              "fieldId": "email_remetente",
+              "fieldValue": "={{ $json.email_remetente }}"
+            },
+            {
+              "fieldId": "dias_atendimento",
+              "fieldValue": "={{ $json.dias_atendimento }}"
+            },
+            {
+              "fieldId": "horario_inicio",
+              "fieldValue": "={{ $json.horario_inicio }}"
+            },
+            {
+              "fieldId": "horario_fim",
+              "fieldValue": "={{ $json.horario_fim }}"
+            },
+            {
+              "fieldId": "duracao_atendimento",
+              "fieldValue": "={{ $json.duracao_atendimento }}"
+            },
+            {
+              "fieldId": "max_agendamentos_dia",
+              "fieldValue": "={{ $json.max_agendamentos_dia }}"
+            },
+            {
+              "fieldId": "telegram_bot",
+              "fieldValue": "={{ $json.telegram_bot }}"
+            },
+            {
+              "fieldId": "instancia_whatsapp",
+              "fieldValue": "={{ $json.instancia_whatsapp }}"
+            },
+            {
+              "fieldId": "ativo",
+              "fieldValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "859521ec-927c-4ce7-a502-8ba3f6bd6447",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FWO0vPTvoM0klZq3",
+          "name": "Supabase agendamento"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Code in JavaScript').item.json.telegram_bot + '/setWebhook?url=https://synpase.app.n8n.cloud/webhook/agendar/telegram?cliente=' + $('Code in JavaScript').item.json.cliente_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "2df05a1f-63a6-4aca-88f8-4ebfd017d9e5",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, cliente_id: $('Code in JavaScript').item.json.cliente_id }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        896,
+        0
+      ],
+      "id": "d2ca65ae-a107-4e06-b763-b2b06278ce8c",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.body;\n\nconst clienteId = data.nome_empresa\n  .toLowerCase()\n  .normalize(\"NFD\")\n  .replace(/[\\u0300-\\u036f]/g, \"\")\n  .replace(/[^a-z0-9]/g, \"_\")\n  .replace(/_+/g, \"_\")\n  .replace(/^_|_$/g, \"\");\n\nconst promptRegras = `Você é um assistente de agendamento da ${data.nome_empresa}, uma ${data.tipo_negocio} localizada em ${data.endereco}. Serviços oferecidos: ${data.servicos}. Planos aceitos: ${data.planos_aceitos}. Horário de atendimento: ${data.horario_inicio} às ${data.horario_fim}. Dias de atendimento: ${data.dias_atendimento}. Duração de cada consulta: ${data.duracao_atendimento} minutos. Ao agendar, colete obrigatoriamente: nome completo, telefone, e-mail e motivo da consulta. Após criar o evento no Google Calendar, SEMPRE use a tool Gmail para enviar e-mail de confirmação ao paciente.`;\n\nreturn [{\n  json: {\n    nome_empresa: data.nome_empresa,\n    tipo_negocio: data.tipo_negocio,\n    endereco: data.endereco,\n    email_remetente: data.email_remetente,\n    dias_atendimento: data.dias_atendimento,\n    horario_inicio: data.horario_inicio,\n    horario_fim: data.horario_fim,\n    duracao_atendimento: data.duracao_atendimento,\n    max_agendamentos_dia: data.max_agendamentos_dia,\n    servicos: data.servicos,\n    planos_aceitos: data.planos_aceitos,\n    telegram_bot: data.telegram_bot,\n    instancia_whatsapp: data.instancia_whatsapp,\n    cliente_id: clienteId,\n    prompt_regras: promptRegras\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "9f20caf5-53eb-48af-95bb-c66edfa8ba17",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a row": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "7139a118-3a37-4c53-a1d7-aa440610cf4d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac"
+  },
+  "id": "ZLLAlhoCZqDL83WU",
+  "tags": []
+}

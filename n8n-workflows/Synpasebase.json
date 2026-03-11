@@ -197,19 +197,6 @@
         176
       ],
       "webhookId": "76d3f16c-a701-43c8-9557-51ab10cf0a5b"
-    },
-    {
-      "parameters": {
-        "jsCode": "return [$input.all()];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        300,
-        -100
-      ],
-      "id": "71e6c897-a5b5-44ab-b8f4-1b82356f899f",
-      "name": "Error Handler"
     }
   ],
   "pinData": {
