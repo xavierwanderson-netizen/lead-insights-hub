@@ -1,0 +1,210 @@
+{
+  "name": "onboarding_sdr",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "onboarding",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "35af7d5f-d217-4bc0-8591-f81485226aec",
+      "name": "Webhook",
+      "webhookId": "b47fb83c-ddb0-45e7-a4cd-685b2fcbfe37"
+    },
+    {
+      "parameters": {
+        "tableId": "clientes",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "cliente_id",
+              "fieldValue": "={{ $json.body.cliente_id }}"
+            },
+            {
+              "fieldId": "nome_empresa",
+              "fieldValue": "={{ $json.body.nome_empresa }}"
+            },
+            {
+              "fieldId": "telegram_bot",
+              "fieldValue": "={{ $json.body.telegram_bot_token }}"
+            },
+            {
+              "fieldId": "pinecone_namespace",
+              "fieldValue": "={{ $json.body.namespace }}"
+            },
+            {
+              "fieldId": "prompt",
+              "fieldValue": "={{ $json.body.prompt }}"
+            },
+            {
+              "fieldId": "plano",
+              "fieldValue": "={{ $json.body.plano }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "eba54b9f-3082-4aa7-ba28-6a41f385d6fb",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "M6sUYhKzdkHKZddU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Webhook').item.json.body.telegram_bot_token + '/setWebhook?url=https://synpase.app.n8n.cloud/webhook/' + $('Webhook').item.json.body.cliente_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e47c0d8c-9c50-4019-8dfa-a093d1c5e3d4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://synpase.app.n8n.cloud/webhook/indexar",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cliente_id",
+              "value": "={{ $('Webhook').item.json.body.cliente_id }}"
+            },
+            {
+              "name": "drive_folder_id",
+              "value": "={{ $('Webhook').item.json.body.drive_folder_id }}"
+            },
+            {
+              "name": "namespace",
+              "value": "={{ $('Webhook').item.json.body.namespace }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "67c218a7-8527-4386-8556-13a375be2e17",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, cliente_id: $('Webhook').item.json.body.cliente_id }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        832,
+        0
+      ],
+      "id": "4e72c60b-806e-4647-89d7-2da850a000a5",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [$input.all()];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        -100
+      ],
+      "id": "7bae23d4-ce2b-4b71-ac0e-989b68176ba2",
+      "name": "Error Handler"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a row": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "52f89d72-c6d7-4a4e-8505-7df66c7fbf0f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac"
+  },
+  "id": "4IDQQxUnqQ97a892",
+  "tags": []
+}
