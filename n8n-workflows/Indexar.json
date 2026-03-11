@@ -333,8 +333,14 @@
   "versionId": "bd5730e9-ecaf-4eb9-bfbf-f8d6b713c507",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac"
+    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac",
+    "lastModified": "2026-03-11T20:40:36.375Z",
+    "version": "1.0.0",
+    "status": "production-ready"
   },
   "id": "RsEKkcVkS3VojQHq",
-  "tags": []
+  "tags": [
+    "indexing",
+    "pdf"
+  ]
 }

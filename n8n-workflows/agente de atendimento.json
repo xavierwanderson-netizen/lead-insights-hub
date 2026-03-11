@@ -431,8 +431,8 @@
       "name": "Postgres Chat Memory",
       "credentials": {
         "postgres": {
-          "id": "CN5uQmnhkIBWoXVx",
-          "name": "Postgres account"
+          "id": "xxx",
+          "name": "PostgreSQL"
         }
       }
     },
@@ -765,8 +765,15 @@
   "versionId": "222eda97-7f04-46af-818c-2e5c9390e209",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac"
+    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac",
+    "lastModified": "2026-03-11T20:40:36.371Z",
+    "version": "1.0.0",
+    "status": "production-ready"
   },
   "id": "g9WmYBw3YQ9E0kBJ",
-  "tags": []
+  "tags": [
+    "conversational",
+    "ai",
+    "webhook"
+  ]
 }
