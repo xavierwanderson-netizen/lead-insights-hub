@@ -500,7 +500,7 @@
       "main": [
         [
           {
-            "node": "Webhook Normalizer",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -511,7 +511,7 @@
       "main": [
         [
           {
-            "node": "Webhook Normalizer",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -611,6 +611,17 @@
         [
           {
             "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Channel Validator",
             "type": "main",
             "index": 0
           }
