@@ -1,0 +1,761 @@
+{
+  "name": "agente de atendimento",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Edit Fields').item.json.mensagem }}",
+        "options": {
+          "systemMessage": "={{ $('Get many rows').item.json.prompt.replace('{nome_empresa}', $('Get many rows').item.json.nome_empresa) }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2160,
+        -16
+      ],
+      "id": "57f67aad-ac6f-424f-85e8-01d9ee712213",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        384
+      ],
+      "id": "dd67ab89-be78-482e-9d49-e0a2e45143b3",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "zOQjq8yb0PvysGzM",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "={{ $('Get many rows').item.json.pinecone_namespace }}",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "basedeconhecimentovendas",
+          "mode": "list",
+          "cachedResultName": "basedeconhecimentovendas"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        2224,
+        256
+      ],
+      "id": "b0277edd-b7eb-4b3e-89e5-aee581d211ae",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "19hfRnUTed35gKis",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2240,
+        432
+      ],
+      "id": "2784ceda-2b40-4d9e-886e-7d78bbf216d5",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "MSnibsGPwcfCxHjm",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "nome",
+              "description": "Nome do cliente se foi mencionado na conversa"
+            },
+            {
+              "name": "empresa",
+              "description": "Nome da empresa do cliente se foi mencionado"
+            },
+            {
+              "name": "dor_principal",
+              "description": "Principal problema ou dificuldade mencionada pelo cliente"
+            },
+            {
+              "name": "interesse",
+              "description": "Produto ou serviço pelo qual o cliente demonstrou interesse"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        2816,
+        304
+      ],
+      "id": "a1b73518-2966-4b31-ae80-0c0403520dac",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2992,
+        576
+      ],
+      "id": "e38967fa-d9da-4561-933f-222f03cff549",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "zOQjq8yb0PvysGzM",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a0e010e2-8340-4b9f-aa5b-26557341c20b",
+              "leftValue": "={{ $json.output.nome }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3168,
+        304
+      ],
+      "id": "4dcf8f3c-7a4c-4776-bed0-f4cb0803c044",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "clientes",
+        "limit": 1,
+        "filterType": "string",
+        "filterString": "=cliente_id=eq.{{ $json.cliente_id }}"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        -48
+      ],
+      "id": "5fc09dc5-21de-46aa-a26e-ebf0ebef5413",
+      "name": "Get many rows",
+      "credentials": {
+        "supabaseApi": {
+          "id": "M6sUYhKzdkHKZddU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b594610c-ed79-4aaa-87d0-a344efc24743",
+              "name": "cliente_id",
+              "value": "={{ $json.query?.cliente ?? $json.body?.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "e77ec46a-447f-435b-91ab-9ed8789fa0fd",
+              "name": "mensagem",
+              "value": "={{ $json.body?.message?.text ?? $json.body?.data?.message?.conversation }}",
+              "type": "string"
+            },
+            {
+              "id": "4c1d6194-2094-408a-b7db-8009bc61c3cb",
+              "name": "chat_id",
+              "value": "={{ $json.body?.message?.chat?.id ?? $json.body?.data?.key?.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "8f9eddeb-1df8-43e7-b724-04010b3b877e",
+              "name": "canal",
+              "value": "={{ $json.body?.data ? 'whatsapp' : 'telegram' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1712,
+        -128
+      ],
+      "id": "8460d4c7-9ecd-4003-815d-9e6526cbd26c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Get many rows').item.json.telegram_bot + '/sendMessage' }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Edit Fields').item.json.chat_id }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2864,
+        -48
+      ],
+      "id": "2e802790-2771-4414-b1c6-69f63d9da42d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "tableId": "leads",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "cliente_id",
+              "fieldValue": "={{ $('Edit Fields').item.json.cliente_id }}"
+            },
+            {
+              "fieldId": "nome",
+              "fieldValue": "={{ $json.output.nome }}"
+            },
+            {
+              "fieldId": "empresa",
+              "fieldValue": "={{ $json.output.empresa }}"
+            },
+            {
+              "fieldId": "telefone",
+              "fieldValue": "={{ $json.output.telefone }}"
+            },
+            {
+              "fieldId": "dor_principal",
+              "fieldValue": "={{ $json.output.dor_principal }}"
+            },
+            {
+              "fieldId": "interesse",
+              "fieldValue": "={{ $json.output.interesse }}"
+            },
+            {
+              "fieldId": "chat_id",
+              "fieldValue": "={{ $('Edit Fields').item.json.chat_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3552,
+        240
+      ],
+      "id": "437ceed5-4d01-4f44-a6aa-f922a2492d9c",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "M6sUYhKzdkHKZddU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e2470feb-a9a5-4507-b9c6-30d00b3c9f9d",
+              "leftValue": "={{ $('Edit Fields').item.json.canal }}",
+              "rightValue": "whatsapp",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2528,
+        -112
+      ],
+      "id": "c9d24f2a-8075-48d2-91cb-5dc39d71c7e6",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://evolution-api-production-9158.up.railway.app/message/sendText/' + $('Edit Fields').item.json.cliente_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpCustomAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('Edit Fields').item.json.chat_id }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2896,
+        -240
+      ],
+      "id": "95233f1e-71d1-4f76-b3f2-984288a6527b",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpCustomAuth": {
+          "id": "HfwK1fefGvRfOQON",
+          "name": "Custom Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telegram",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        1440,
+        -208
+      ],
+      "id": "7ce4edf9-57f3-45c5-b9da-04358180d556",
+      "name": "Webhooktelegram",
+      "webhookId": "ded4d615-88d3-4343-9cbe-76462f80f9c3"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        1392,
+        16
+      ],
+      "id": "1b378845-f1b7-40e6-9e84-b72d01167edd",
+      "name": "Webhookwhatsapp",
+      "webhookId": "c694e0e4-afdf-4c2b-969e-7e5d889e2d10"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Edit Fields').item.json.cliente_id + '_' + $('Edit Fields').item.json.chat_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        2064,
+        288
+      ],
+      "id": "7e355135-4d7f-46f1-b015-eb1128a8946b",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "CN5uQmnhkIBWoXVx",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Webhook Normalizer - normaliza Telegram e WhatsApp\n// Ver utils/webhook-normalizer.js para lógica completa\nconst data = $input.all().json;\nlet normalized;\n\nif (data.message && data.update_id) {\n  normalized = {\n    source: 'telegram',\n    user_id: String(data.message.from?.id || data.message.chat.id),\n    user_name: data.message.from?.first_name || 'Unknown',\n    message_text: data.message.text,\n    timestamp: data.message.date,\n    channel_id: String(data.message.chat.id),\n    chat_id: String(data.message.chat.id),\n    cliente_id: $input.all().json.query?.cliente,\n    canal: 'telegram'\n  };\n} else if (data.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {\n  const msg = data.entry[0].changes[0].value.messages[0];\n  normalized = {\n    source: 'whatsapp',\n    user_id: msg.from,\n    user_name: data.entry[0].changes[0].value.contacts?.[0]?.profile?.name || msg.from,\n    message_text: msg.text.body,\n    timestamp: parseInt(msg.timestamp),\n    channel_id: data.entry[0].changes[0].value.metadata?.phone_number_id,\n    chat_id: msg.from,\n    cliente_id: $input.all().json.query?.cliente || $input.all().json.body?.instance,\n    canal: 'whatsapp'\n  };\n}\n\nif (!normalized) throw new Error('Webhook normalization failed');\nreturn [{ json: normalized }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        -128
+      ],
+      "id": "8fce35ae-4a74-4799-8986-fd5117dc082a",
+      "name": "Webhook Normalizer"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Global Error Handler\nconst data = $input.all().json;\nif (data.error) {\n  const messages = {\n    AI_TIMEOUT: 'Desculpe, estou processando. Tente novamente em alguns segundos.',\n    AI_ERROR: 'Tenho uma dificuldade. Um agente entrará em contato.',\n    DB_ERROR: 'Não consegui salvar. Tente novamente.',\n    DEFAULT: 'Algo deu errado. Nossa equipe foi notificada.'\n  };\n  return [{ json: {\n    fallback: messages[data.error.type] || messages.DEFAULT,\n    logged: true\n  }}];\n}\nreturn [$input.all()];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        100
+      ],
+      "id": "65d2bec0-51d1-4d59-82d8-4de94fb2f404",
+      "name": "Error Handler"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Channel Validator\nconst data = $input.all().json;\nconst errors = [];\n\nif (data.canal === 'telegram') {\n  if (!data.chat_id) errors.push('Missing Telegram chat_id');\n  if (!data.message_text) errors.push('Missing message text');\n} else if (data.canal === 'whatsapp') {\n  if (!data.user_id || !/^\\d{10,15}$/.test(data.user_id)) errors.push('Invalid WhatsApp number');\n  if (!data.message_text) errors.push('Missing message text');\n}\n\nif (data.message_text?.includes('exec(') || data.message_text?.includes('eval(')) {\n  errors.push('Security: Code injection detected');\n}\n\nif (errors.length > 0) {\n  throw new Error('VALIDATION_ERROR: ' + errors.join(' | '));\n}\n\nreturn [$input.all()];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1900,
+        50
+      ],
+      "id": "fb4d3323-c08e-4d0e-b206-de790a726385",
+      "name": "Channel Validator"
+    },
+    {
+      "parameters": {
+        "amount": 3.5,
+        "unit": "seconds"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.2,
+      "position": [
+        3300,
+        304
+      ],
+      "id": "a5a5e424-3d5a-4046-9f96-ee4d15563a9a",
+      "name": "Natural Delay (2-5s)"
+    }
+  ],
+  "pinData": {
+    "Webhooktelegram": [
+      {
+        "json": {
+          "headers": {
+            "host": "synpase.app.n8n.cloud",
+            "content-length": "395",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "91.108.5.137",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "NL",
+            "cf-ray": "9d74a310082a6db1-AMS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "x-forwarded-for": "91.108.5.137, 162.159.113.39",
+            "x-forwarded-host": "synpase.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-88-6d496d77f5-9zfcb",
+            "x-is-trusted": "yes",
+            "x-real-ip": "91.108.5.137"
+          },
+          "params": {},
+          "query": {
+            "cliente": "clienteB"
+          },
+          "body": {
+            "update_id": 465758316,
+            "message": {
+              "message_id": 9,
+              "from": {
+                "id": 965536558,
+                "is_bot": false,
+                "first_name": "Wanderson",
+                "last_name": "Lima",
+                "username": "wandersonlima",
+                "language_code": "pt-br"
+              },
+              "chat": {
+                "id": 965536558,
+                "first_name": "Wanderson",
+                "last_name": "Lima",
+                "username": "wandersonlima",
+                "type": "private"
+              },
+              "date": 1772666693,
+              "text": "Boa noite! Quero. Informações sobre suas soluções."
+            }
+          },
+          "webhookUrl": "https://synpase.app.n8n.cloud/webhook/telegram",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Error Handler",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Natural Delay (2-5s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Webhooktelegram": {
+      "main": [
+        [
+          {
+            "node": "Webhook Normalizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhookwhatsapp": {
+      "main": [
+        [
+          {
+            "node": "Webhook Normalizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Normalizer": {
+      "main": [
+        [
+          {
+            "node": "Channel Validator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Validator": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Natural Delay (2-5s)": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Handler": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "222eda97-7f04-46af-818c-2e5c9390e209",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "942d6e5386a44be22fb63e301cd8d29ab8fa0f4012383a6f8f72689c394116ac"
+  },
+  "id": "g9WmYBw3YQ9E0kBJ",
+  "tags": []
+}
