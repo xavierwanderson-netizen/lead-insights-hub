@@ -4,7 +4,7 @@
 
 ```bash
 # 1. Defina as variáveis de ambiente
-export N8N_BASE_URL="https://synpase.app.n8n.cloud"
+export N8N_BASE_URL="https://n8n-production-841d.up.railway.app"
 export N8N_API_KEY="seu_token_aqui"
 
 # 2. Execute o script de deploy
