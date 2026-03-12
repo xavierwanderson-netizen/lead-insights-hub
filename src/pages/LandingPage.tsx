@@ -705,10 +705,10 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-6 text-sm opacity-70">
             <button onClick={() => navigate("/onboarding")} className="hover:opacity-100 transition-opacity">
-              Cadastro
+              Agente SDR
             </button>
             <button onClick={() => navigate("/onboarding-agendamento")} className="hover:opacity-100 transition-opacity">
-              Agendamento
+              Agente de Agendamento
             </button>
             <button onClick={() => navigate("/dashboardlead")} className="hover:opacity-100 transition-opacity">
               Dashboard
