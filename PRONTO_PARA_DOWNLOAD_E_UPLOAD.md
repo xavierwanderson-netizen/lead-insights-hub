@@ -56,7 +56,7 @@ Clique em cada arquivo → Raw → Salve (Ctrl+S ou Cmd+S)
 
 **1. Abra seu N8N**
 ```
-https://synpase.app.n8n.cloud
+https://n8n-production-841d.up.railway.app
 ```
 
 **2. Clique em "Import Workflow"**
