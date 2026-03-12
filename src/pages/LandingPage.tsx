@@ -13,6 +13,7 @@ import { useState } from "react";
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
   { label: "Funcionalidades", href: "#features" },
+  { label: "Soluções", href: "#agents" },
   { label: "Casos de Uso", href: "#usecases" },
   { label: "Preços", href: "#pricing" },
 ];
@@ -167,9 +168,6 @@ function Navbar() {
           >
             Entrar
           </Button>
-          <Button size="sm" variant="secondary" className="ml-2" onClick={() => navigate("/onboarding-agendamento")}>
-            Agendamento
-          </Button>
           <Button size="sm" className="ml-2" onClick={() => navigate("/onboarding")}>
             Começar grátis <ArrowRight className="w-3.5 h-3.5" />
           </Button>
@@ -198,9 +196,6 @@ function Navbar() {
           <div className="flex flex-col gap-2 pt-2">
             <Button variant="outline" onClick={() => { setMobileOpen(false); navigate("/dashboardlead"); }}>
               Entrar
-            </Button>
-            <Button variant="secondary" onClick={() => { setMobileOpen(false); navigate("/onboarding-agendamento"); }}>
-              Agendamento
             </Button>
             <Button onClick={() => { setMobileOpen(false); navigate("/onboarding"); }}>
               Começar grátis <ArrowRight className="w-3.5 h-3.5" />
@@ -449,6 +444,87 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── NOSSOS AGENTES ── */}
+      <section id="agents" className="py-20 lg:py-28 px-6 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-14"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-xs font-bold tracking-widest uppercase text-primary mb-3 block">
+              Soluções
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-4 text-foreground">
+              Escolha o agente ideal para o seu negócio
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Temos dois agentes especializados. Cadastre sua empresa no que faz mais sentido para você — ou nos dois!
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Agente SDR */}
+            <motion.div
+              className="bg-background border-2 border-border rounded-2xl p-8 flex flex-col hover:border-primary/50 transition-colors"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={0}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
+                <Target className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="font-display text-xl font-bold text-foreground mb-2">Agente de Atendimento SDR</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                Atendimento inteligente via Telegram e WhatsApp. A IA responde dúvidas, qualifica leads e salva tudo no CRM automaticamente — 24 horas por dia.
+              </p>
+              <ul className="space-y-2 mb-6">
+                {["Respostas com IA treinada", "Qualificação automática de leads", "Integração com CRM e Supabase", "Multi-canal: Telegram + WhatsApp"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm text-foreground/80">
+                    <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <Button className="w-full gap-2" onClick={() => navigate("/onboarding")}>
+                Quero o Agente SDR <ArrowRight className="w-4 h-4" />
+              </Button>
+            </motion.div>
+
+            {/* Agente de Agendamento */}
+            <motion.div
+              className="bg-background border-2 border-border rounded-2xl p-8 flex flex-col hover:border-secondary/50 transition-colors"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={1}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mb-5">
+                <Clock className="w-7 h-7 text-secondary" />
+              </div>
+              <h3 className="font-display text-xl font-bold text-foreground mb-2">Agente de Agendamento</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                Agendamento automático de consultas e reuniões via IA. Perfeito para clínicas, salões, barbearias e consultórios que querem organizar a agenda sem esforço.
+              </p>
+              <ul className="space-y-2 mb-6">
+                {["Agendamento via Telegram + WhatsApp", "Integração com Google Calendar", "Confirmações automáticas por email", "Controle de horários e disponibilidade"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm text-foreground/80">
+                    <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <Button variant="secondary" className="w-full gap-2" onClick={() => navigate("/onboarding-agendamento")}>
+                Quero o Agente de Agendamento <ArrowRight className="w-4 h-4" />
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+
       {/* ── SOCIAL PROOF (Métricas + Testemunhos) ── */}
       <section className="py-20 lg:py-28 px-6 bg-primary text-primary-foreground">
         <div className="max-w-7xl mx-auto">
@@ -630,10 +706,10 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-6 text-sm opacity-70">
             <button onClick={() => navigate("/onboarding")} className="hover:opacity-100 transition-opacity">
-              Cadastro
+              Agente SDR
             </button>
             <button onClick={() => navigate("/onboarding-agendamento")} className="hover:opacity-100 transition-opacity">
-              Agendamento
+              Agente de Agendamento
             </button>
             <button onClick={() => navigate("/dashboardlead")} className="hover:opacity-100 transition-opacity">
               Dashboard
