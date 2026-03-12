@@ -4,7 +4,7 @@
 
 ```bash
 # 1. Defina as variáveis de ambiente
-export N8N_BASE_URL="https://synpase.app.n8n.cloud"
+export N8N_BASE_URL="https://n8n-production-841d.up.railway.app"
 export N8N_API_KEY="seu_token_aqui"
 
 # 2. Execute o script de deploy
@@ -25,7 +25,7 @@ node deploy-workflows.js
 
 ## Como Obter o API Key:
 
-1. Abra N8N: https://synpase.app.n8n.cloud
+1. Abra N8N: https://n8n-production-841d.up.railway.app
 2. Vá para: Settings → API Keys
 3. Clique: "Generate API Key"
 4. Copie e use no script
@@ -34,7 +34,7 @@ node deploy-workflows.js
 
 ### Teste 1: Agente de Atendimento
 ```bash
-curl -X POST https://synpase.app.n8n.cloud/webhook/telegram \
+curl -X POST https://n8n-production-841d.up.railway.app/webhook/telegram \
   -H "Content-Type: application/json" \
   -d '{
     "message": {
@@ -48,7 +48,7 @@ curl -X POST https://synpase.app.n8n.cloud/webhook/telegram \
 
 ### Teste 2: Onboarding SDR
 ```bash
-curl -X POST https://synpase.app.n8n.cloud/webhook/onboarding \
+curl -X POST https://n8n-production-841d.up.railway.app/webhook/onboarding \
   -H "Content-Type: application/json" \
   -d '{
     "cliente_id": "test_001",

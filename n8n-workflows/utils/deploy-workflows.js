@@ -7,7 +7,7 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 
-const N8N_BASE_URL = process.env.N8N_BASE_URL || 'https://synpase.app.n8n.cloud';
+const N8N_BASE_URL = process.env.N8N_BASE_URL || 'https://n8n-production-841d.up.railway.app';
 const N8N_API_KEY = process.env.N8N_API_KEY;
 
 if (!N8N_API_KEY) {

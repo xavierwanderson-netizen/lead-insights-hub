@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 
-const N8N_WEBHOOK_URL = "https://synpase.app.n8n.cloud/webhook/onboarding";
+const N8N_WEBHOOK_URL = "https://n8n-production-841d.up.railway.app/webhook/onboarding";
 
 const STEPS = [
   { id: 1, title: "Empresa", icon: "🏢" },

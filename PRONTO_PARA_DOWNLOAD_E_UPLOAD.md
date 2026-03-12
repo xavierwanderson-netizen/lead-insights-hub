@@ -56,7 +56,7 @@ Clique em cada arquivo → Raw → Salve (Ctrl+S ou Cmd+S)
 
 **1. Abra seu N8N**
 ```
-https://synpase.app.n8n.cloud
+https://n8n-production-841d.up.railway.app
 ```
 
 **2. Clique em "Import Workflow"**
@@ -227,7 +227,7 @@ Manual Trigger → Google Drive → Processa → Indexa
 ### Teste 2: Onboarding SDR
 ```bash
 # Via HTTP
-curl -X POST https://synpase.app.n8n.cloud/webhook/onboarding \
+curl -X POST https://n8n-production-841d.up.railway.app/webhook/onboarding \
   -H "Content-Type: application/json" \
   -d '{
     "cliente_id": "test_001",
@@ -309,7 +309,7 @@ curl -X POST https://synpase.app.n8n.cloud/webhook/onboarding \
 https://github.com/xavierwanderson-netizen/lead-insights-hub/tree/main/n8n-workflows
 
 **N8N Dashboard:**
-https://synpase.app.n8n.cloud
+https://n8n-production-841d.up.railway.app
 
 **Documentação Completa:**
 - OTIMIZACAO_COMPLETADA.md

@@ -193,7 +193,7 @@ POSTGRES_PASSWORD=xxx
 ## 🚀 INSTRUÇÕES DE PUBLICAÇÃO
 
 ### Passo 1: Preparação (5 min)
-1. Abra seu N8N em https://synpase.app.n8n.cloud
+1. Abra seu N8N em https://n8n-production-841d.up.railway.app
 2. Verifique se todas as credenciais estão salvas
 3. Teste uma credencial (Google Gemini)
 
