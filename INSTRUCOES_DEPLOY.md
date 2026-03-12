@@ -34,7 +34,7 @@ node deploy-workflows.js
 
 ### Teste 1: Agente de Atendimento
 ```bash
-curl -X POST https://synpase.app.n8n.cloud/webhook/telegram \
+curl -X POST https://n8n-production-841d.up.railway.app/webhook/telegram \
   -H "Content-Type: application/json" \
   -d '{
     "message": {
