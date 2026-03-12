@@ -68,7 +68,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ 'https://api.telegram.org/bot' + $('Webhook').item.json.body.telegram_bot_token + '/setWebhook?url=https://synpase.app.n8n.cloud/webhook/' + $('Webhook').item.json.body.cliente_id }}",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Webhook').item.json.body.telegram_bot_token + '/setWebhook?url=https://n8n-production-841d.up.railway.app/webhook/' + $('Webhook').item.json.body.cliente_id }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
