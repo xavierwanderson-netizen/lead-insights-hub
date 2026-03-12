@@ -13,6 +13,7 @@ import { useState } from "react";
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
   { label: "Funcionalidades", href: "#features" },
+  { label: "Soluções", href: "#agents" },
   { label: "Casos de Uso", href: "#usecases" },
   { label: "Preços", href: "#pricing" },
 ];
