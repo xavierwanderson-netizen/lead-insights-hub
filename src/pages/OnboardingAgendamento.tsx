@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { Building2, Clock, Briefcase, MessageCircle, CheckCircle2, ArrowLeft, ArrowRight, Send } from "lucide-react";
 
-const WEBHOOK_URL = "https://synpase.app.n8n.cloud/webhook/onboarding-agendamento";
+const WEBHOOK_URL = "https://n8n-production-841d.up.railway.app/webhook/onboarding-agendamento";
 
 const STEPS = [
   { id: 1, title: "Empresa", icon: Building2 },

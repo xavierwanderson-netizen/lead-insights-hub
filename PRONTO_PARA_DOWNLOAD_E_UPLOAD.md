@@ -227,7 +227,7 @@ Manual Trigger → Google Drive → Processa → Indexa
 ### Teste 2: Onboarding SDR
 ```bash
 # Via HTTP
-curl -X POST https://synpase.app.n8n.cloud/webhook/onboarding \
+curl -X POST https://n8n-production-841d.up.railway.app/webhook/onboarding \
   -H "Content-Type: application/json" \
   -d '{
     "cliente_id": "test_001",

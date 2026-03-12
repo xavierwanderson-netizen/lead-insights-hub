@@ -96,7 +96,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ 'https://api.telegram.org/bot' + $('Code in JavaScript').item.json.telegram_bot + '/setWebhook?url=https://synpase.app.n8n.cloud/webhook/agendar/telegram?cliente=' + $('Code in JavaScript').item.json.cliente_id }}",
+        "url": "={{ 'https://api.telegram.org/bot' + $('Code in JavaScript').item.json.telegram_bot + '/setWebhook?url=https://"url": "={{ 'https://api.telegram.org/bot' + $('Code in JavaScript').item.json.telegram_bot + '/setWebhook?url=https://n8n-production-841d.up.railway.app/webhook/agendar/telegram?cliente=' + $('Code in JavaScript').item.json.cliente_id }}",/telegram?cliente=' + $('Code in JavaScript').item.json.cliente_id }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",

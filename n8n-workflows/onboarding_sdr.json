@@ -83,7 +83,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://synpase.app.n8n.cloud/webhook/indexar",
+        "url": "https://n8n-production-841d.up.railway.app/webhook/indexar",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [

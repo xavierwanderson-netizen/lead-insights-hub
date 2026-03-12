@@ -436,7 +436,7 @@
               "text": "Boa noite! Quero. Informações sobre suas soluções."
             }
           },
-          "webhookUrl": "https://synpase.app.n8n.cloud/webhook/telegram",
+          "webhookUrl": "https://n8n-production-841d.up.railway.app/webhook/telegram",
           "executionMode": "production"
         },
         "pairedItem": {

@@ -48,7 +48,7 @@ curl -X POST https://n8n-production-841d.up.railway.app/webhook/telegram \
 
 ### Teste 2: Onboarding SDR
 ```bash
-curl -X POST https://synpase.app.n8n.cloud/webhook/onboarding \
+curl -X POST https://n8n-production-841d.up.railway.app/webhook/onboarding \
   -H "Content-Type: application/json" \
   -d '{
     "cliente_id": "test_001",
