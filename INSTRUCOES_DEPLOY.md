@@ -25,7 +25,7 @@ node deploy-workflows.js
 
 ## Como Obter o API Key:
 
-1. Abra N8N: https://synpase.app.n8n.cloud
+1. Abra N8N: https://n8n-production-841d.up.railway.app
 2. Vá para: Settings → API Keys
 3. Clique: "Generate API Key"
 4. Copie e use no script

@@ -309,7 +309,7 @@ curl -X POST https://n8n-production-841d.up.railway.app/webhook/onboarding \
 https://github.com/xavierwanderson-netizen/lead-insights-hub/tree/main/n8n-workflows
 
 **N8N Dashboard:**
-https://synpase.app.n8n.cloud
+https://n8n-production-841d.up.railway.app
 
 **Documentação Completa:**
 - OTIMIZACAO_COMPLETADA.md
