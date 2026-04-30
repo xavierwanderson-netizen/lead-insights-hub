@@ -2,7 +2,7 @@ const SUPABASE_URL = "https://rbiwvevkytatxffeoypw.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiaXd2ZXZreXRhdHhmZmVveXB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NzI0MTcsImV4cCI6MjA4ODA0ODQxN30.UkazBahD-MolCE9Dx-0JmoKAMopi9xNiwOc3n51DkjI";
 
 export const CLIENTES = [
-  { id: "clienteA", nome: "Closing Senior" },
+  { id: "clienteA", nome: "Agenia Mirai" },
   { id: "clienteB", nome: "CDL Goiânia" },
 ];
 
