@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import {
   Zap, MessageSquare, BarChart3, Users, Clock, TrendingUp,
   Bot, Shield, Globe, ArrowRight, Star, CheckCircle2, Send, Menu, X,
-  Sparkles, Headphones, Target, Building2, GraduationCap, Stethoscope, Home as HomeIcon, Factory
+  Sparkles, Headphones, Target, Building2, GraduationCap, Stethoscope, Home as HomeIcon, Factory, Mail
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import logoIcon from "@/assets/agenia-mirai-icon.png";
 
 /* ─── Data ─── */
 
@@ -141,12 +142,15 @@ function Navbar() {
           className="flex items-center gap-2.5 cursor-pointer"
           onClick={() => scrollTo("#hero")}
         >
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-            <Zap className="w-5 h-5 text-primary-foreground" />
+          <img src={logoIcon} alt="Agenia Mirai" className="w-9 h-9 object-contain" />
+          <div className="flex flex-col leading-none">
+            <span className="font-display font-extrabold text-lg text-foreground tracking-tight">
+              Agenia <span className="text-primary">Mirai</span>
+            </span>
+            <span className="text-[10px] font-medium text-muted-foreground tracking-wider uppercase">
+              IA. Resultados reais.
+            </span>
           </div>
-          <span className="font-display font-bold text-lg text-foreground">
-            Closing Senior
-          </span>
         </div>
 
         {/* Desktop */}
@@ -535,7 +539,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-4">
-              Empresas que confiam no Closing Senior
+              Empresas que confiam na Agenia Mirai
             </h2>
             <p className="text-primary-foreground/75 text-lg">Resultados reais de clientes como você.</p>
           </motion.div>
@@ -556,7 +560,7 @@ export default function LandingPage() {
               },
               {
                 name: "Marcos Oliveira",
-                role: "Founder — ClosingPro",
+                role: "Founder — Mirai Lab",
                 text: "Setup em 5 minutos, resultados em 24 horas. Melhor investimento que fizemos este ano.",
                 avatar: "MO",
               },
@@ -699,10 +703,8 @@ export default function LandingPage() {
       <footer className="border-t border-border py-10 px-6 bg-foreground text-background">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Zap className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-display font-bold text-sm">Closing Senior</span>
+            <img src={logoIcon} alt="Agenia Mirai" className="w-8 h-8 object-contain" />
+            <span className="font-display font-bold text-sm">Agenia Mirai</span>
           </div>
           <div className="flex items-center gap-6 text-sm opacity-70">
             <button onClick={() => navigate("/onboarding")} className="hover:opacity-100 transition-opacity">
@@ -717,9 +719,12 @@ export default function LandingPage() {
             <button onClick={() => document.querySelector("#pricing")?.scrollIntoView({ behavior: "smooth" })} className="hover:opacity-100 transition-opacity">
               Preços
             </button>
+            <a href="mailto:ageniamirai@gmail.com" className="hover:opacity-100 transition-opacity inline-flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5" /> ageniamirai@gmail.com
+            </a>
           </div>
           <p className="text-xs opacity-50">
-            © {new Date().getFullYear()} Closing Senior. Todos os direitos reservados.
+            © {new Date().getFullYear()} Agenia Mirai. Todos os direitos reservados.
           </p>
         </div>
       </footer>
